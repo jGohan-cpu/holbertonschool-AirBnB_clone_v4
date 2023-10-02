@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head>    
     <meta charset="UTF-8">
-
-    <link rel="stylesheet" type="text/css" href="../static/styles/4-common.css?{{ cache_id }}">
-    <link rel="stylesheet" type="text/css" href="../static/styles/3-header.css?{{ cache_id }}">
-    <link rel="stylesheet" type="text/css" href="../static/styles/3-footer.css?{{ cache_id }}">
-    <link rel="stylesheet" type="text/css" href="../static/styles/6-filters.css?{{ cache_id }}">
-    <link type="text/css" rel="stylesheet" href="../static/styles/8-places.css?{{ cache_id }}">
+    <link rel="stylesheet" type="text/css" href="../static/styles/4-common.css?cache_id={{ cache_id }}">
+    <link rel="stylesheet" type="text/css" href="../static/styles/3-header.css?cache_id={{ cache_id }}">
+    <link rel="stylesheet" type="text/css" href="../static/styles/3-footer.css?cache_id={{ cache_id }}">
+    <link rel="stylesheet" type="text/css" href="../static/styles/6-filters.css?cahe_id={{ cache_id }}">
+    <link type="text/css" rel="stylesheet" href="../static/styles/8-places.css?cache_id={{ cache_id }}">
     <link rel="icon" href="../static/images/icon.png?{{ cache_id }}" />
-
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="static/scripts/1-hbnb.js?cache_id={{ cache_id }}"></script>
     <title>HBnB</title>
   </head>
   <body>
@@ -38,11 +38,13 @@
 	</div>
 	<div class="amenities">
 	  <h3>Amenities</h3>
-	  <h4>&nbsp;</h4>
+      <div id="amenity_div">
+	  <h4 id="amenity_list">&nbsp;</h4>
+      </div>
 	  <div class="popover">
 	    <ul>
 	      {% for amenity in amenities %}
-	      <li>{{ amenity.name }}</li>
+	      <li><input type="checkbox" data-id="{{ amenity.id }}" data-name="{{ amenity.name }}" style="margin-right:10px">{{ amenity.name }}</li>
 	      {% endfor %}
 	    </ul>
 	  </div>
@@ -77,5 +79,4 @@
       <p>Holberton School</p>
     </footer>
   </body>
-
 </html>
