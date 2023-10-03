@@ -1,6 +1,7 @@
 #!/usr/bin/node
 amenity_dict = {}
 amenity_list = []
+
 $(document).ready(function() {
     $('input:checkbox').change(function() {
     if ($(this).is(':checked')) {
@@ -33,4 +34,3 @@ $(document).ready(function() {
         }
     }
 })
-});
