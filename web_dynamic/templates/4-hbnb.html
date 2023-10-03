@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>    
+  <head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="static/scripts/4-hbnb.js?{{ cache_id }}"></script>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../static/styles/4-common.css?cache_id={{ cache_id }}">
-    <link rel="stylesheet" type="text/css" href="../static/styles/3-header.css?cahce_id{{ cache_id }}">
+    <link rel="stylesheet" type="text/css" href="../static/styles/3-header.css?cache_id={{ cache_id }}">
     <link rel="stylesheet" type="text/css" href="../static/styles/3-footer.css?cache_id={{ cache_id }}">
     <link rel="stylesheet" type="text/css" href="../static/styles/6-filters.css?cache_id={{ cache_id }}">
-    <link type="text/css" rel="stylesheet" href="../static/styles/8-places.css?cahce_id={{ cache_id }}">
-    <link rel="icon" href="../static/images/icon.png?cche_id={{ cache_id }}" />
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="static/scripts/2-hbnb.js?cache_id={{ cache_id }}"></script>
+    <link type="text/css" rel="stylesheet" href="../static/styles/8-places.css?cche_id={{ cache_id }}">
+    <link rel="icon" href="../static/images/icon.png?cache_id={{ cache_id }}" />
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="static/scripts/4-hbnb.js?cache_id={{ cache_id }}"></script>
     <title>HBnB</title>
   </head>
   <body>
@@ -54,10 +56,11 @@
       <div class="placesh1"><h1>Places</h1></div>
       <section class="places">
 	<!-- <h1>Places</h1> -->
+	<!--
 	{% for place in places %}
 	<article>
 	  <div class="title_box">
-	    <h2>{{ place.name }}</h2>
+	    <h2></h2>
 	    <div class="price_by_night">${{ place.price_by_night }}</div>
 	  </div>
 	  <div class="information">
@@ -65,14 +68,11 @@
             <div class="number_rooms">{{ place.number_rooms }} Bedroom{% if place.number_rooms != 1 %}s{% endif %}</div>
             <div class="number_bathrooms">{{ place.number_bathrooms }} Bathroom{% if place.number_bathrooms != 1 %}s{% endif %}</div>
 	  </div>
-	  <div class="user">
-            <b>Owner:</b> {{ place.user.first_name }} {{ place.user.last_name }}
-          </div>
           <div class="description">
 	    {{ place.description | safe }}
           </div>
 	</article>
-	{% endfor %}
+	{% endfor %} -->
       </section>
     </div>
     <footer>
