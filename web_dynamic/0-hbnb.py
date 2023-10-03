@@ -14,22 +14,18 @@ app = Flask(__name__)
 # app.jinja_env.lstrip_blocks = True
 
 
-
 @app.teardown_appcontext
 def close_db(error):
     """ Remove the current SQLAlchemy Session """
     storage.close()
 
 
-
 @app.route('/0-hbnb', strict_slashes=False)
-
 def hbnb():
     """ HBNB is alive! """
     states = storage.all(State).values()
     states = sorted(states, key=lambda k: k.name)
     st_ct = []
-
 
     for state in states:
         st_ct.append([state, sorted(state.cities, key=lambda k: k.name)])
@@ -52,4 +48,3 @@ if __name__ == "__main__":
     """ Main Function """
 
     app.run(host='0.0.0.0', port=5000)
-
