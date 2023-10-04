@@ -1,36 +1,62 @@
 #!/usr/bin/node
-amenity_dict = {}
-amenity_list = []
-
-$(document).ready(function() {
-    $('input:checkbox').change(function() {
-    if ($(this).is(':checked')) {
-        console.log("CHECKED")
-        amenity_id = $(this).data("id")
-        amenity_name = $(this).data("name")
-        amenity_dict[amenity_name] = amenity_id
-        console.log(amenity_dict)
-        amenity_list = Object.getOwnPropertyNames(amenity_dict)
-        console.log(amenity_list.toString())
-        if (amenity_list.length !== 0) {
-            $("#amenity_list").text(amenity_list.toString())
+$(document).ready(function () {
+    const amenityIds = {};
+  
+    $('input[type=checkbox]').change(function () {
+      const amenityId = $(this).data('id');
+      const amenityName = $(this).data('name');
+  
+      if ($(this).prop('checked')) {
+        amenityIds[amenityId] = amenityName;
+      } else {
+        delete amenityIds[amenityId];
+      }
+  
+      $('.amenities h4').text(Object.values(amenityIds).join(', '));
+    });
+  });
+  
+$(() => {
+    $.ajax({
+      type: 'GET',
+      url: 'http://0.0.0.0:5001/api/v1/status/',
+      success: (data) => {
+        if (data.status === 'OK') {
+          $('div#api_status').addClass('available');
         } else {
-            $("#amenity_list").text('\xa0')
+          $('div#api_status').removeClass('available');
         }
-        
+      },
+      error: () => {
+        $('div#api_status').removeClass('available');
+      }
+    });
+});
 
-    } else {
-        console.log("UNCHECKED")
-        amenity_id = $(this).data("id")
-        amenity_name = $(this).data("name")
-        delete amenity_dict[amenity_name]
-        console.log(amenity_dict)
-        amenity_list = Object.getOwnPropertyNames(amenity_dict)
-        console.log(amenity_list.toString())
-        if (amenity_list.length !== 0) {
-            $("#amenity_list").text(amenity_list.toString())
-        } else {
-            $("#amenity_list").text('\xa0')
+$(() => {
+    $.ajax({
+      type: 'POST',
+      url: 'http://0.0.0.0:5001/api/v1/places_search/',
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify({}),
+      success: function(data, status) {
+        console.log(data);
+        for (place of data) {
+            $('.places').append(`
+            <article>
+                <div class="title_box">
+	                <h2>${place.name}</h2>
+	                <div class="price_by_night">$${place.price_by_night}</div>
+	            </div>
+                <div class="information">
+                    <div class="max_guest">${place.max_guest}Guests</div>
+                    <div class="number_rooms">${place.number_rooms}Bedrooms</div>
+                    <div class="number_bathrooms">${place.number_bathrooms}Bathrooms</div>
+                </div>
+                <div class="description">
+                    ${place.description}
+                    </div>
+                </article>`)};
         }
-    }
-})});
+    });
+});
