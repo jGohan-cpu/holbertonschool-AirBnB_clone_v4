@@ -9,25 +9,16 @@ header .logo {
     left: 20px;
     height: 100%;
 }
-
-.unavailable {
-    float: right;
-    height: 40px;
+#api_status {
+    position: fixed;
+    right: 30px;
+    top: 15px;
     width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background-color: #CCCCCC;
-    vertical-align: center;
-    margin-top: 15px;
-    margin-right: 30px;
+    background-color: #cccccc;
 }
 
-.available {
+#api_status.available {
     background-color: #ff545f;
-    float: right;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    vertical-align: center;
-    margin-top: 15px;
-    margin-right: 30px;
 }

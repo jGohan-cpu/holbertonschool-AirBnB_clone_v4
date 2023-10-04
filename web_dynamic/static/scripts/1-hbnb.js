@@ -11,7 +11,7 @@ $(document).ready(function() {
         console.log(amenity_dict)
         amenity_list = Object.getOwnPropertyNames(amenity_dict)
         console.log(amenity_list.toString())
-        if (amenity_list.length !== 0) {
+        if (amenity_list.length !== 0) {this
             $("#amenity_list").text(amenity_list.toString())
         } else {
             $("#amenity_list").text('\xa0')
