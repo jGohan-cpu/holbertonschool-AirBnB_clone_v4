@@ -1,5 +1,9 @@
 #!/usr/bin/node
+// This is the shebang line, which tells the system that this file should be run using Node.js.
+
 function printPlace(obj) {
+    // This function takes an object as an argument and appends a new article element to the element with class 'places' using template literals.
+
     $('.places').append(`
         <article>
             <div class="title_box">
@@ -14,76 +18,65 @@ function printPlace(obj) {
             <div class="description">
                 ${obj.description}
             </div>
-        </article>`)
+        </article>`);
 }
 
 $(document).ready(function () {
+    // This is a jQuery function that waits for the document to be fully loaded before executing the code inside.
+
     const amenityIds = {};
+    // Declaring an empty object 'amenityIds' that will store the selected amenity IDs and their corresponding names.
 
     $('input[type=checkbox]').change(function () {
+        // This is a jQuery event listener that waits for a change event on any checkbox input element.
+
         const amenityId = $(this).data('id');
+        // This retrieves the value of the 'data-id' attribute of the checkbox that triggered the event, and stores it in the 'amenityId' variable.
+
         const amenityName = $(this).data('name');
+        // This retrieves the value of the 'data-name' attribute of the checkbox that triggered the event, and stores it in the 'amenityName' variable.
+
         if ($(this).prop('checked')) {
+            // If the checkbox is checked...
+
             amenityIds[amenityId] = amenityName;
+            // ...add the amenity ID and name to the 'amenityIds' object.
         } else {
+            // If the checkbox is unchecked...
+
             delete amenityIds[amenityId];
+            // ...remove the amenity ID and name from the 'amenityIds' object.
         }
+
         $('.amenityFilter h4').text(Object.values(amenityIds).join(', '));
+        // Selects the h4 element inside the element with class 'amenityFilter', and sets its text content to the comma-separated list of amenity names stored in the 'amenityIds' object.
     });
+
     $('button').click(function () {
-        if (Object.keys(amenityIds) !== 0) {
+        // This is a jQuery event listener that waits for a click event on any button element.
+
+        if (Object.keys(amenityIds).length !== 0) {
+            // If there are selected amenities...
+
             $('.places').text('');
+            // Clears the text content of the element with class 'places'.
+
             $.ajax({
+                // This is a jQuery AJAX request.
+
                 type: 'POST',
+                // Specifies the type of request.
+
                 url: 'http://0.0.0.0:5001/api/v1/places_search/',
+                // Specifies the URL to send the request to.
+
                 contentType: "application/json; charset=utf-8",
+                // Specifies the content type of the request.
+
                 data: JSON.stringify({}),
+                // Specifies the data to send with the request.
+
                 success: function (data, status) {
-                    data.sort((a, b) => a.name.localeCompare(b.name));
-                    for (const place of data) {
-                        $.ajax({
-                            type: 'GET',
-                            url: `http://0.0.0.0:5001/api/v1/places/${place.id}/amenities`,
-                            success: (results) => {
-                                let idArray = results.map(obj => obj.id);
-                                if (Object.keys(amenityIds).every(value => idArray.includes(value))) {
-                                    printPlace(place);
-                                }
-                            }
-                        });
-                    };
-                }
-            });
-        };
-    });
-    $(() => {
-        $.ajax({
-            type: 'GET',
-            url: 'http://0.0.0.0:5001/api/v1/status/',
-            success: (data) => {
-                if (data.status === 'OK') {
-                    $('div#api_status').addClass('available');
-                } else {
-                    $('div#api_status').removeClass('available');
-                }
-            },
-            error: () => {
-                $('div#api_status').removeClass('available');
-            }
-        });
-    });
-    $(() => {
-        $.ajax({
-            type: 'POST',
-            url: 'http://0.0.0.0:5001/api/v1/places_search/',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({}),
-            success: function (data, status) {
-                data.sort((a, b) => a.name.localeCompare(b.name));
-                for (const place of data) {
-                    printPlace(place);
-                };
-            }
-        });
-    });
-});
+                    // This is a callback function that is executed if the request is successful.
+
+                    data.sort((a,
