@@ -47,10 +47,12 @@ $(document).ready(function () {
             delete amenityIds[amenityId];
             // ...remove the amenity ID and name from the 'amenityIds' object.
         }
+    
 
         $('.amenityFilter h4').text(Object.values(amenityIds).join(', '));
         // Selects the h4 element inside the element with class 'amenityFilter', and sets its text content to the comma-separated list of amenity names stored in the 'amenityIds' object.
     });
+})
 
     $('button').click(function () {
         // This is a jQuery event listener that waits for a click event on any button element.
@@ -76,7 +78,13 @@ $(document).ready(function () {
                 data: JSON.stringify({}),
                 // Specifies the data to send with the request.
 
-                success: function (data, status) {
-                    // This is a callback function that is executed if the request is successful.
-
-                    data.sort((a,
+                success: function (data) {
+                    // Assuming you want to sort the places by name, for example
+                    data.sort((a, b) => a.name.localeCompare(b.name));
+                
+                    // Now, iterate through the sorted data and use the printPlace function to render each place
+                    data.forEach(place => printPlace(place));
+                }
+            })
+        }
+    })
