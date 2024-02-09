@@ -59,4 +59,6 @@ $(() => {
                 $('div#api_status').removeClass('available');
                 // ...remove the class 'available' from the element with ID 'api_status'.
             }
-       
+        }
+    });
+});
